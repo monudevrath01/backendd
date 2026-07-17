@@ -10,8 +10,13 @@ class SocketService {
   init(server) {
     this.io = new Server(server, {
       cors: {
-        origin: '*', // Adjust to match your frontend origin in production
-        methods: ['GET', 'POST']
+        origin: [
+          'http://localhost:3000',
+          'http://localhost:3001',
+          process.env.FRONTEND_URL,
+        ].filter(Boolean),
+        methods: ['GET', 'POST'],
+        credentials: true,
       }
     });
 
